@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: day4venkat1
+    x: venkatlabel
+  name: day4venkat1
+  namespace: venkat
+spec:
+  containers:
+  - image: krishna5787/day4webapp:v1
+    name: day4venkat1
+    ports:
+     - containerPort: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: day4venkatsvc
+  name: day4venkatsvc
+  namespace: venkat
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    x: venkatlabel
+  type: NodePort
+status:
+  loadBalancer: {}
